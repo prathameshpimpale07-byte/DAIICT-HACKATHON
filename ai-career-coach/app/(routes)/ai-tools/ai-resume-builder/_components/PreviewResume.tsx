@@ -126,6 +126,63 @@ export default function PreviewResume({
             ))}
           </div>
         )}
+        {/* PROJECTS */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold border-b border-gray-300 pb-1 mb-2">
+            Projects
+          </h2>
+          {projects.length > 0 ? (
+            projects.map((proj, i) => (
+              <div key={i} className="text-sm mb-2">
+                <p className="font-semibold text-gray-800">
+                  {proj.title}{" "}
+                  {proj.link && (
+                    <a
+                      href={proj.link}
+                      target="_blank"
+                      className="text-blue-600 underline ml-1"
+                    >
+                      [Link]
+                    </a>
+                  )}
+                </p>
+                <ul className="list-disc list-inside text-gray-700 ml-2">
+                  {proj.description.map((desc, idx) => (
+                    <li key={idx}>{desc}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          ) : (
+            <p className="text-sm text-gray-700 ml-2">
+              No projects added yet.
+            </p>
+          )}
+        </div>
+
+        {/* SKILLS */}
+        {(skills.languages.length + skills.frameworks.length + skills.tools.length + skills.core.length) > 0 && (
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold border-b border-gray-300 pb-1 mb-2">
+              Skills
+            </h2>
+            <div className="text-sm text-gray-700 space-y-1">
+              {skills.languages.length > 0 && (
+                <p><span className="font-semibold">Languages:</span> {skills.languages.join(", ")}</p>
+              )}
+              {skills.frameworks.length > 0 && (
+                <p><span className="font-semibold">Frameworks & Libraries:</span> {skills.frameworks.join(", ")}</p>
+              )}
+              {skills.tools.length > 0 && (
+                <p><span className="font-semibold">Technologies & Tools:</span> {skills.tools.join(", ")}</p>
+              )}
+              {skills.core.length > 0 && (
+                <p><span className="font-semibold">Core Components:</span> {skills.core.join(", ")}</p>
+              )}
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
