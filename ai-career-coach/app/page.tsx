@@ -44,6 +44,9 @@ export default function Home() {
           </div>
         </div>
       </nav>
+
+
+
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -172,10 +175,103 @@ export default function Home() {
 
 
 
-          
+ {/* Center Card - AI Mock Interview */}
+          <div className="flex justify-center mb-8">
+            <div className="group relative bg-gradient-to-br from-cyan-50 to-teal-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-cyan-500 dark:hover:border-cyan-400 w-full md:w-2/3 lg:w-1/2">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl"></div>
+              <div className="relative">
+                <div className="w-16 h-16 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" strokeWidth="2" />
+                    <path d="M9 10h.01M15 10h.01M9.5 15.5a3.5 3.5 0 005 0" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  AI Mock Interview
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                  Practice interviews with our AI interviewer. Get real-time feedback, improve your answers, and build confidence for the big day.
+                </p>
+                <a href="/dashboard" className="inline-flex items-center text-cyan-600 dark:text-cyan-400 font-semibold hover:gap-3 gap-2 transition-all">
+                  Start Practice
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Second Row - 2 Cards */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Feature Card 3 */}
+            <div className="group relative bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-green-500 dark:hover:border-green-400">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl"></div>
+              <div className="relative">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" strokeWidth="2" />
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" strokeWidth="2" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  Career Roadmap Generator
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                  Visualize your career path with personalized roadmaps. Set goals, track milestones, and achieve your dreams.
+                </p>
+                <a href="/dashboard" className="inline-flex items-center text-green-600 dark:text-green-400 font-semibold hover:gap-3 gap-2 transition-all">
+                  Create Roadmap
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Feature Card 4 */}
+            <div className="group relative bg-gradient-to-br from-orange-50 to-red-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-orange-500 dark:hover:border-orange-400">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl"></div>
+              <div className="relative">
+                <div className="w-16 h-16 bg-gradient-to-br from-orange-600 to-red-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z" strokeWidth="2" />
+                    <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" strokeWidth="2" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  Cover Letter Generator
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                  Generate compelling cover letters in seconds. Personalized content that highlights your strengths and passion.
+                </p>
+                <a href="/dashboard" className="inline-flex items-center text-orange-600 dark:text-orange-400 font-semibold hover:gap-3 gap-2 transition-all">
+                  Generate Letter
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
   )
