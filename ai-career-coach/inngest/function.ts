@@ -109,3 +109,54 @@ OUTPUT JSON SCHEMA (EXACT STRUCTURE):
     apiKey:process.env.GEMINI_API_KEY
   })
 })
+
+export const AIRoadMapGenerartorAgent = createAgent({
+  name: "AIRoadMapGenerartorAgent",
+  description: "Generate detailed tree-like flow roadmap",
+
+  system: `
+Generate a flow tree-structured learning roadmap for the given position/skills.
+
+STRUCTURE RULES:
+- Vertical tree structure with meaningful x/y positions
+- Similar to roadmap.sh layout
+- Steps ordered from fundamentals to advanced
+- Include branching for specializations (if applicable)
+- Use unique IDs for all nodes and edges
+- Make node positions well spaced
+
+RESOURCE LINK RULES:
+- Use ONLY YouTube SEARCH links (youtube.com/results)
+- DO NOT use direct video URLs (watch?v=)
+- Links must be search-based and never point to a specific video ID
+- Example:
+  https://www.youtube.com/results?search_query=react+native+navigation+tutorial
+
+RESPONSE FORMAT (JSON ONLY):
+{
+  roadmapTitle: "Title of the Roadmap",
+  description: "<3–5 lines>",
+  duration: "",
+  initialNodes: [
+    {
+      id: "1",
+      type: "turbo",
+      position: { x: 0, y: 0 },
+      data: {
+        title: "Step Title",
+        description: "Short two-line explanation",
+        link: "YouTube search link"
+      }
+    }
+  ],
+  initialEdges: [
+    { id: "e1-2", source: "1", target: "2" }
+  ]
+}
+`,
+
+  model: gemini({
+    model: "gemini-2.5-flash-lite",
+    apiKey: process.env.GEMINI_API_KEY,
+  }),
+});
