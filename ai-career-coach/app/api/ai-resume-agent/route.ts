@@ -25,7 +25,21 @@ if (!dbUser.length) {
 const userId = dbUser[0].id;
   const loader = new WebPDFLoader(resumeFile)
   const docs = await loader.load();
+
   
+    const arrayBuffer = await resumeFile.arrayBuffer(); 
+    const base64= Buffer.from(arrayBuffer).toString('base64');
+  const resultId = await inngest.send({
+    name:'AiResumeAgent',
+    data:{
+        recordId: recordId,
+        resumeFile:resumeFile,
+        base64ResumeFile:base64,
+        pdfText : docs[0]?.pageContent,
+        userEmail: email  ,
+        userId: userId
+    }
+  });
 
 
 }
