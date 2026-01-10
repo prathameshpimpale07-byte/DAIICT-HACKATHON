@@ -1,7 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import React from "react";
+import { downloadResumePDF, downloadResumePrintPDF } from "@/lib/pdf-utils/download-resume";
 
 interface PreviewResumeProps {
   personalInfo: {
@@ -48,9 +50,100 @@ export default function PreviewResume({
   achievements,
   includeWorkExperience = true,
 }: PreviewResumeProps) {
+  const [isDownloading, setIsDownloading] = React.useState(false);
+  const [downloadError, setDownloadError] = React.useState<string | null>(null);
+
+  const handleDownloadPDF = async () => {
+    setIsDownloading(true);
+    setDownloadError(null);
+
+    try {
+      const resumeData = {
+        personalInfo,
+        careerObjective,
+        education,
+        workExperience,
+        projects,
+        skills,
+        certifications,
+        achievements,
+        includeWorkExperience,
+      };
+
+      await downloadResumePDF(resumeData, (progress) => {
+        console.log(`Download progress: ${progress}%`);
+      });
+
+      // Show success message
+      console.log("Resume downloaded successfully");
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to download resume";
+      setDownloadError(errorMessage);
+      console.error("Download error:", error);
+
+      // Fallback to print dialog
+      try {
+        console.log("Falling back to print dialog...");
+        downloadResumePrintPDF({
+          personalInfo,
+          careerObjective,
+          education,
+          workExperience,
+          projects,
+          skills,
+          certifications,
+          achievements,
+          includeWorkExperience,
+        });
+      } catch (fallbackError) {
+        console.error("Fallback also failed:", fallbackError);
+      }
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
     return (
-       <div className="flex justify-center items-start bg-gray-100 p-6 rounded-xl shadow-inner h-[90vh] overflow-y-auto">
-      <div className="bg-white w-[794px] h-[1123px] shadow-md border border-gray-200 rounded-md p-10 text-gray-800 leading-relaxed overflow-y-auto">
+       <div className="flex justify-center items-start bg-gray-100 p-6 rounded-xl shadow-inner h-[90vh] overflow-y-auto no-print">
+      <div className="bg-white w-[794px] h-[1123px] shadow-md border border-gray-200 rounded-md p-10 text-gray-800 leading-relaxed overflow-y-auto print:shadow-none print:border-none print:rounded-none print:h-auto print:w-auto print:p-0 print:bg-white print:m-0">
+        <style>{`
+          @media print {
+            .no-print,
+            [data-no-print="true"] {
+              display: none !important;
+            }
+            
+            body {
+              background: white !important;
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            
+            html {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            
+            .bg-gray-100 {
+              background: white !important;
+            }
+            
+            .shadow-md,
+            .shadow-inner,
+            .rounded-md,
+            .rounded-xl {
+              box-shadow: none !important;
+              border-radius: 0 !important;
+            }
+            
+            * {
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+              color-adjust: exact !important;
+            }
+          }
+        `}</style>
         {/* HEADER */}
         <div className="border-b-2 border-gray-300 pb-4 mb-6 text-center">
           <h1 className="text-3xl font-bold text-gray-900 uppercase tracking-wide">
@@ -207,12 +300,27 @@ export default function PreviewResume({
         )}
 
         {/* ACTION BUTTONS */}
-        <div className="flex gap-4 mt-6 justify-center">
-          <Button className="px-6 text-base">Download as PDF</Button>
-          <Button variant="outline" className="px-6 text-base">
-            Copy to Clipboard
+        <div className="flex gap-4 mt-6 justify-center no-print" data-no-print="true">
+          <Button
+            // onClick={handleDownloadPDF}
+            disabled={isDownloading}
+            className="px-6 text-base"
+          >
+            {isDownloading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Generating PDF...
+              </>
+            ) : (
+              "Download as PDF"
+            )}
           </Button>
         </div>
+        {downloadError && (
+          <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-md text-red-800 text-sm no-print" data-no-print="true">
+            {downloadError}
+          </div>
+        )}
       </div>
     </div>
   );
